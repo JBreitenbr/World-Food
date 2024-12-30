@@ -15,6 +15,8 @@ const [sugar,setSugar]=useState([])
 const [pulses, setPulses] = useState([]);
 const [meat, setMeat] = useState([]);
 const [oils, setOils] = useState([]);
+const [fruits, setFruits] = useState([]);
+const [dairy, setDairy] = useState([]);
 const [years, setYears] = useState([]);  
   useEffect(() =>{
     fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
@@ -29,7 +31,17 @@ const [years, setYears] = useState([]);
   useEffect(() =>{
     fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
     .then(res => res.json())
+    .then(data => setFruits(data[country]["Fruits and vegetables"]))
+  },[country])
+  useEffect(() =>{
+    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
+    .then(res => res.json())
     .then(data => setSugar(data[country]["Sugar"]))
+  },[country])
+    useEffect(() =>{
+    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
+    .then(res => res.json())
+    .then(data => setDairy(data[country]["Dairy and eggs"]))
   },[country])
     useEffect(() =>{
     fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
@@ -75,10 +87,10 @@ const [years, setYears] = useState([]);
             },
             {
               type: "line",
-              data: sugar,
-              label: "Sugar",
+              data: fruits,
+              label: "Fruits and vegetables",
               area: true,
-              color:"#386cb0",
+              color:"darkgreen",
               showMark: false,
               stack: "stack",
             },
@@ -87,6 +99,24 @@ const [years, setYears] = useState([]);
               data: pulses,
               label: "Pulses",
               color:"#66c2a5",
+              area: true,
+              showMark: false,
+              stack: "stack",
+            },
+            {
+              type: "line",
+              data: dairy,
+              label: "Dairy and eggs",
+              color:"#ffff99",
+              area: true,
+              showMark: false,
+              stack: "stack",
+            },
+            {
+              type: "line",
+              data: meat,
+              label: "Meat",
+              color:"#fc8d62",
               area: true,
               showMark: false,
               stack: "stack",
@@ -102,13 +132,13 @@ const [years, setYears] = useState([]);
             },
             {
               type: "line",
-              data: meat,
-              label: "Meat",
-              color:"#fc8d62",
+              data: sugar,
+              label: "Sugar",
               area: true,
+              color:"#386cb0",
               showMark: false,
               stack: "stack",
-            }
+            },
           ]}
           grid={{ horizontal: true }}
           xAxis={[{ scaleType: "point", data: years }]}
