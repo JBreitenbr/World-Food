@@ -1,14 +1,18 @@
 import React, { useState,useEffect } from "react";
-import { Box,Typography } from "@mui/material";
+import { Box,Typography,Select,MenuItem  } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
 
 /*const uData = [75, 60, 45, 65, 80, 50];
 const pData = [60, 80, 60, 80, 100, 75];
 const xLabels = [" ", "9 AM", "12 PM", "15 PM", "18 PM", "19 PM"];*/
-const yLabels = [350, 450, 600, 750, 900, 1050, 1200,2000,4000];
+const yLabels = [1000,2000,3000,4000,5000];
 
 const Chart = () => {
 const [country,setCountry]=useState("Germany")
+const [countries,setCountries]=useState([])
+const handleChange=(e)=> {
+  setCountry(e.target.value)
+}
 const [aniProts,setAniProts]=useState([])
 const [vegiProts,setVegiProts]=useState([])
 const [fats, setFats] = useState([]);
@@ -18,22 +22,27 @@ const [years, setYears] = useState([]);
     fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/pfc.json')
     .then(res => res.json())
     .then(data => setAniProts(data[country]["Animal protein"]))
-  },[])
+  },[country])
   useEffect(() =>{
     fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/pfc.json')
     .then(res => res.json())
     .then(data => setVegiProts(data[country]["Vegetal protein"]))
+  },[country])
+    useEffect(() =>{
+    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/pfc.json')
+    .then(res => res.json())
+    .then(data => setCountries(Object.keys(data).slice(1,Object.keys(data).length)))
   },[])
   useEffect(() =>{
     fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/pfc.json')
     .then(res => res.json())
     .then(data => setFats(data[country]["Fat"]))
-  },[])
+  },[country])
     useEffect(() =>{
     fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/pfc.json')
     .then(res => res.json())
     .then(data => setCarbs(data[country]["Carbohydrates"]))
-  },[])
+  },[country])
   useEffect(() =>{
     fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/pfc.json')
     .then(res => res.json())
@@ -41,16 +50,23 @@ const [years, setYears] = useState([]);
   },[])
   
   return (   
-      <Box className="performance-chart"><Typography>{country}</Typography>
+      <Box className="performance-chart"><Typography>Daily caloric supply derived from carbohydrates, protein and fat, 1992-2021</Typography> <Select
+    id="country-select"
+    value={country}
+    label="Country"
+    onChange={handleChange}
+  >{countries.map((country,index)=><MenuItem key={index} value={country}>{country}</MenuItem>)}
+  </Select>
         <LineChart
           width={370}
-          height={370}
+          height={420}
           series={[
             {
               type: "line",
               data: carbs,
               label: "Carbo",
               area: true,
+              color:"#beaed4",
               showMark: false,
               stack: "stack",
             },
@@ -59,6 +75,7 @@ const [years, setYears] = useState([]);
               data: fats,
               label: "Fat",
               area: true,
+              color:"#386cb0",
               showMark: false,
               stack: "stack",
             },
@@ -66,6 +83,7 @@ const [years, setYears] = useState([]);
               type: "line",
               data: vegiProts,
               label: "Veg. prot.",
+              color:"#66c2a5",
               area: true,
               showMark: false,
               stack: "stack",
@@ -74,6 +92,7 @@ const [years, setYears] = useState([]);
               type: "line",
               data: aniProts,
               label: "Animal prot.",
+              color:"#fc8d62",
               area: true,
               showMark: false,
               stack: "stack",
