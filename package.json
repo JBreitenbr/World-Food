@@ -1,0 +1,35 @@
+{
+  "name": "react-javascript",
+  "homepage": "https://jbreitenbr.github.io/World-Food",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "React TypeScript on Replit, using Vite bundler",
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@vitejs/plugin-react": "^4.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.3.0",
+    "@mui/material": "^6.3.0",
+    "@mui/x-charts": "^7.23.2",
+    "gh-pages": "^6.2.0",
+    "react-router-dom": "^7.1.1"
+  }
+}
