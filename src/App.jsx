@@ -14,8 +14,8 @@ function App() {
     <><BrowserRouter>
 
           <Routes>
-              <Route path="/" element={<Chart/>}/>
-              <Route path="/dashboard2" element={<Dashboard2/>}/>
+              <Route path="/World-Food" element={<Chart/>}/>
+              <Route path="/World-Food/dashboard2" element={<Dashboard2/>}/>
           </Routes>
         
     </BrowserRouter>
