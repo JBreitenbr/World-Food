@@ -2,7 +2,7 @@ import React, { useState,useEffect } from "react";
 import { Box,Typography,Select,MenuItem  } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
 
-const yLabels = [1000,2000,3000,4000,5000];
+const yLabels = [1000,2000,3000,3700];
 
 const Chart2 = () => {
 const [country,setCountry]=useState("Germany")
@@ -70,11 +70,12 @@ const [years, setYears] = useState([]);
     value={country}
     label="Country"
     onChange={handleChange}
+    sx={{backgroundColor:"#f5f5f5",width:"100%"}}
   >{countries.map((country,index)=><MenuItem key={index} value={country}>{country}</MenuItem>)}
   </Select>
         <LineChart
           width={370}
-          height={350}
+          height={250}
           series={[
             {
               type: "line",
@@ -143,7 +144,7 @@ const [years, setYears] = useState([]);
           grid={{ horizontal: true }}
           xAxis={[{ scaleType: "point", data: years }]}
           yAxis={[{ scaleType: "linear", data: yLabels }]}
-          slotProps={{ legend: { hidden: false } }}
+          slotProps={{ legend: { hidden: true } }}
           sx={{
             display: "flex",
             width: "370px",
@@ -197,10 +198,57 @@ const [years, setYears] = useState([]);
             },
           }}
           disableAxisListener
-        />
+        /><Box sx={{display:"flex",flexDirection:"row",gap:"5px",marginBottom:"8px"}}><Box
+        sx={{
+          width: 15,
+          height: 15,
+          bgcolor: '#386cb0',
+          marginLeft: '10px',
+        }}
+      /><Typography sx={{fontSize:"12px"}}>Sugar</Typography> <Box
+          sx={{
+            width: 15,
+            height: 15,
+            bgcolor: '#cc3333',
+            marginLeft: '5px',
+          }}/><Typography sx={{fontSize:"12px"}}>Oils and fats </Typography><Box
+        sx={{
+          width: 15,
+          height: 15,
+          bgcolor: '#fc8d62',
+          marginLeft: '10px',
+        }}
+      /><Typography sx={{fontSize:"12px"}}>Meat</Typography> <Box
+          sx={{
+            width: 15,
+            height: 15,
+            bgcolor: '#ffff99',
+            marginLeft: '5px',
+          }}/><Typography sx={{fontSize:"12px"}}>Dairy and eggs </Typography>
       </Box>
-  );
-};
+        <Box sx={{display:"flex",flexDirection:"row",gap:"5px"}}><Box
+          sx={{
+            width: 15,
+            height: 15,
+            bgcolor: '#66c2a5',
+            marginLeft: '10px',
+          }}
+        /><Typography sx={{fontSize:"12px"}}>Pulses</Typography> <Box
+            sx={{
+              width: 15,
+              height: 15,
+              bgcolor: 'darkgreen',
+              marginLeft: '5px',
+            }}/><Typography sx={{fontSize:"12px"}}>Fruits and vegetables</Typography><Box
+            sx={{
+              width: 15,
+              height: 15,
+              bgcolor: '#beaed4',
+              marginLeft: '5px',
+            }}/><Typography sx={{fontSize:"12px"}}>Other</Typography></Box>
+      </Box>
+  );;
+};;
 
 export default Chart2;
 
