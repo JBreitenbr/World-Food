@@ -2,55 +2,58 @@ import React, { useState,useEffect } from "react";
 import { Box,Typography,Select,MenuItem  } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
 
-/*const uData = [75, 60, 45, 65, 80, 50];
-const pData = [60, 80, 60, 80, 100, 75];
-const xLabels = [" ", "9 AM", "12 PM", "15 PM", "18 PM", "19 PM"];*/
 const yLabels = [1000,2000,3000,4000,5000];
 
-const Chart = () => {
+const Chart2 = () => {
 const [country,setCountry]=useState("Germany")
 const [countries,setCountries]=useState([])
 const handleChange=(e)=> {
   setCountry(e.target.value)
 }
-const [aniProts,setAniProts]=useState([])
-const [vegiProts,setVegiProts]=useState([])
-const [fats, setFats] = useState([]);
-const [carbs, setCarbs] = useState([]);
+const [othComm,setOthComm]=useState([])
+const [sugar,setSugar]=useState([])
+const [pulses, setPulses] = useState([]);
+const [meat, setMeat] = useState([]);
+const [oils, setOils] = useState([]);
 const [years, setYears] = useState([]);  
   useEffect(() =>{
-    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/pfc.json')
+    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
     .then(res => res.json())
-    .then(data => setAniProts(data[country]["Animal protein"]))
+    .then(data => setOthComm(data[country]["Other commodities"]))
   },[country])
   useEffect(() =>{
-    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/pfc.json')
+    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
     .then(res => res.json())
-    .then(data => setVegiProts(data[country]["Vegetal protein"]))
+    .then(data => setOils(data[country]["Oils and fats"]))
+  },[country])
+  useEffect(() =>{
+    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
+    .then(res => res.json())
+    .then(data => setSugar(data[country]["Sugar"]))
   },[country])
     useEffect(() =>{
-    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/pfc.json')
+    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
     .then(res => res.json())
     .then(data => setCountries(Object.keys(data).slice(1,Object.keys(data).length)))
   },[])
   useEffect(() =>{
-    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/pfc.json')
+    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
     .then(res => res.json())
-    .then(data => setFats(data[country]["Fat"]))
+    .then(data => setPulses(data[country]["Pulses"]))
   },[country])
     useEffect(() =>{
-    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/pfc.json')
+    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
     .then(res => res.json())
-    .then(data => setCarbs(data[country]["Carbohydrates"]))
+    .then(data => setMeat(data[country]["Meat"]))
   },[country])
   useEffect(() =>{
-    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/pfc.json')
+    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
     .then(res => res.json())
     .then(data => setYears(data["Years"]))
   },[])
   
   return (   
-      <Box className="performance-chart"><Typography>Daily caloric supply derived from carbohydrates, protein and fat, 1992-2021</Typography> <Select
+      <Box className="performance-chart">{/*<Typography>Daily caloric supply derived from carbohydrates, protein and fat, 1992-2021</Typography>*/ }<Select
     id="country-select"
     value={country}
     label="Country"
@@ -63,8 +66,8 @@ const [years, setYears] = useState([]);
           series={[
             {
               type: "line",
-              data: carbs,
-              label: "Carbo",
+              data: othComm,
+              label: "Other",
               area: true,
               color:"#beaed4",
               showMark: false,
@@ -72,17 +75,17 @@ const [years, setYears] = useState([]);
             },
             {
               type: "line",
-              data: fats,
-              label: "Fat",
+              data: sugar,
+              label: "Sugar",
               area: true,
               color:"#386cb0",
               showMark: false,
               stack: "stack",
             },
-            {
+           {
               type: "line",
-              data: vegiProts,
-              label: "Veg. prot.",
+              data: pulses,
+              label: "Pulses",
               color:"#66c2a5",
               area: true,
               showMark: false,
@@ -90,8 +93,17 @@ const [years, setYears] = useState([]);
             },
             {
               type: "line",
-              data: aniProts,
-              label: "Animal prot.",
+              data: oils,
+              label: "Oils and fats",
+              color:"#cc3333",
+              area: true,
+              showMark: false,
+              stack: "stack",
+            },
+            {
+              type: "line",
+              data: meat,
+              label: "Meat",
               color:"#fc8d62",
               area: true,
               showMark: false,
@@ -160,5 +172,5 @@ const [years, setYears] = useState([]);
   );
 };
 
-export default Chart;
+export default Chart2;
 

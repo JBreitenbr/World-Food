@@ -3,6 +3,7 @@ import './App.css'
 import {Routes, Route} from 'react-router-dom'
 import {BrowserRouter}  from 'react-router-dom';
 import Chart from './MyChart'
+import Chart2 from './Commodities'
 import Dashboard1 from './Dashboard1'
 import Dashboard2 from './Dashboard2'
 import Navbar from './Navbar'
@@ -15,7 +16,7 @@ function App() {
 
           <Routes>
               <Route path="/World-Food" element={<Chart/>}/>
-              <Route path="/World-Food/dashboard2" element={<Dashboard2/>}/>
+              <Route path="/World-Food/commodities" element={<Chart2/>}/>
           </Routes>
         
     </BrowserRouter>
