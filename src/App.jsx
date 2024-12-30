@@ -15,8 +15,8 @@ function App() {
     <><BrowserRouter>
 
           <Routes>
-              <Route path="/World-Food" element={<Chart/>}/>
-              <Route path="/World-Food/commodities" element={<Chart2/>}/>
+              <Route path="/World-Food" element={<Chart2/>}/>
+              <Route path="/World-Food/commodities" element={<Chart/>}/>
           </Routes>
         
     </BrowserRouter>
