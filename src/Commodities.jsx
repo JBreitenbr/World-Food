@@ -11,8 +11,11 @@ const handleChange=(e)=> {
   setCountry(e.target.value)
 }
 const [othComm,setOthComm]=useState([])
+const [alc,setAlc]=useState([])
 const [sugar,setSugar]=useState([])
 const [pulses, setPulses] = useState([]);
+const [roots, setRoots] = useState([]);
+const [cereals, setCereals] = useState([]);
 const [meat, setMeat] = useState([]);
 const [oils, setOils] = useState([]);
 const [fruits, setFruits] = useState([]);
@@ -23,10 +26,27 @@ const [years, setYears] = useState([]);
     .then(res => res.json())
     .then(data => setOthComm(data[country]["Other commodities"]))
   },[country])
+
+    useEffect(() =>{
+    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
+    .then(res => res.json())
+    .then(data => setAlc(data[country]["Alcoholic beverages"]))
+  },[country])
+  useEffect(() =>{
+    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
+    .then(res => res.json())
+    .then(data => setRoots(data[country]["Starchy roots"]))
+  },[country])
   useEffect(() =>{
     fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
     .then(res => res.json())
     .then(data => setOils(data[country]["Oils and fats"]))
+  },[country])  
+    
+useEffect(() =>{
+    fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
+    .then(res => res.json())
+    .then(data => setCereals(data[country]["Cereals and grains"]))
   },[country])
   useEffect(() =>{
     fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
@@ -74,8 +94,8 @@ const [years, setYears] = useState([]);
   >{countries.map((country,index)=><MenuItem key={index} value={country}>{country}</MenuItem>)}
   </Select>
         <LineChart
-          width={370}
-          height={250}
+          width={350}
+          height={270}
           series={[
             {
               type: "line",
@@ -83,6 +103,42 @@ const [years, setYears] = useState([]);
               label: "Other",
               area: true,
               color:"#beaed4",
+              showMark: false,
+              stack: "stack",
+            },
+            {
+              type: "line",
+              data: alc,
+              label: "Alcoholic beverages",
+              area: true,
+              color:"cyan",
+              showMark: false,
+              stack: "stack",
+            },
+            {
+              type: "line",
+              data: cereals,
+              label: "Cereals and grains",
+              area: true,
+              color:"lightblue",
+              showMark: false,
+              stack: "stack",
+            },
+            {
+              type: "line",
+              data: pulses,
+              label: "Pulses",
+              color:"#66c2a5",
+              area: true,
+              showMark: false,
+              stack: "stack",
+            },
+            {
+              type: "line",
+              data: roots,
+              label: "Starchy roots",
+              color:"darkgrey",
+              area: true,
               showMark: false,
               stack: "stack",
             },
@@ -96,15 +152,6 @@ const [years, setYears] = useState([]);
               stack: "stack",
             },
            {
-              type: "line",
-              data: pulses,
-              label: "Pulses",
-              color:"#66c2a5",
-              area: true,
-              showMark: false,
-              stack: "stack",
-            },
-            {
               type: "line",
               data: dairy,
               label: "Dairy and eggs",
@@ -137,7 +184,7 @@ const [years, setYears] = useState([]);
               label: "Sugar",
               area: true,
               color:"#386cb0",
-              showMark: false,
+              showMark: true,
               stack: "stack",
             },
           ]}
