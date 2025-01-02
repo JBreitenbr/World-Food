@@ -20,13 +20,13 @@ const [meat, setMeat] = useState([]);
 const [oils, setOils] = useState([]);
 const [fruits, setFruits] = useState([]);
 const [dairy, setDairy] = useState([]);
+
 const [years, setYears] = useState([]);  
   useEffect(() =>{
     fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
     .then(res => res.json())
     .then(data => setOthComm(data[country]["Other commodities"]))
   },[country])
-
     useEffect(() =>{
     fetch('https://raw.githubusercontent.com/JBreitenbr/spotidjango/refs/heads/main/comm.json')
     .then(res => res.json())
@@ -83,8 +83,7 @@ useEffect(() =>{
     .then(res => res.json())
     .then(data => setYears(data["Years"]))
   },[])
-  
-  return (   
+  return ( 
       <Box className="performance-chart">{/*<Typography>Daily caloric supply derived from carbohydrates, protein and fat, 1992-2021</Typography>*/ }<Select
     id="country-select"
     value={country}
